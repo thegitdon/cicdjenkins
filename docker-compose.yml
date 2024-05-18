@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:15.6
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=value
+      #- POSTGRES_DB=testdb
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+  limitless:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    #links:
+    #  - postgres
+volumes:
+  postgresql:
+    name: documentos_postgresql
